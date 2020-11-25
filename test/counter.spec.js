@@ -58,6 +58,12 @@ describe('min 옵션 사용 시 현재값과 min 값이 동일하면', () => {
 
   it('dec() 함수를 호출해도 값이 감소하지 않는다.', () => {
     counter.dec();
+    counter.dec();
+    counter.dec();
+    counter.dec();
+    counter.dec();
+    counter.dec();
+    counter.dec();
     expect(counter.val()).toBe(min);
   });
 
@@ -81,6 +87,10 @@ describe('max 옵션 사용 시 현재값과 max 값이 동일하면', () => {
   });
 
   it('inc() 함수를 호출해도 값이 증가하지 않는다.', () => {
+    counter.inc();
+    counter.inc();
+    counter.inc();
+    counter.inc();
     counter.inc();
     expect(counter.val()).toBe(max);
   });
