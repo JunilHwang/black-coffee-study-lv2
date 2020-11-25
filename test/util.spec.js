@@ -2,15 +2,15 @@ import { add, swap } from '../src/util';
 
 describe('add()', () => {
   test('인자가 없으면 0을 반환한다.', () => {
-
+    expect(add()).toEqual(0);
   });
 
   test('인자가 하나이면, 인자 그대로 반환한다.', () => {
-
+    expect(add(1)).toEqual(1);
   });
 
   test('인자가 두 개이면 두 인자를 더한 결과를 반환한다', () => {
-
+    expect(add(1, 2)).toEqual(3);
   });
 });
 
