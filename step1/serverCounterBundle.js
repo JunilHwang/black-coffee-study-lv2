@@ -3,7 +3,7 @@ const app = require('express')();
 
 const file = './serverCounter.html';
 const options = { watch: true };
-const { createCounter } = require('./src/backup/counter');
+const { createCounter } = require('./step1/src/backup/counter');
 
 const bundler = new Bundler(file, options);
 
