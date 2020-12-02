@@ -1,0 +1,56 @@
+{
+  "name": "js-test-basic-step2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "test:basic": "jest test/basic.spec.js --watch",
+    "test:counter": "jest test/counter.spec.js --watch",
+    "test:uiCounter": "jest test/uiCounter/dom.spec.js --watch",
+    "test:html": "jest test/uiCounter/html.spec.js --watch",
+    "test:serverCounter": "jest test/serverCounter.spec.js --watch",
+    "test:coverage": "jest --coverage",
+    "app:uiCounter": "parcel uiCounter.html",
+    "app:serverCounter": "node ./serverCounterBundle.js"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "jest-serializer-html"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://imakerjun@github.com/next-step/js-test-basic-step2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/next-step/js-test-basic-step2/issues"
+  },
+  "homepage": "https://github.com/next-step/js-test-basic-step2#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@testing-library/cypress": "^4.2.0",
+    "@testing-library/dom": "^6.11.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "axios-mock-adapter": "^1.17.0",
+    "babel-jest": "^24.9.0",
+    "diffable-html": "^4.0.0",
+    "jest": "^24.9.0",
+    "jest-serializer-html": "^7.0.0",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "bootstrap": "^4.4.1",
+    "core-js": "^3.6.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jquery": "^3.3.1"
+  }
+}
