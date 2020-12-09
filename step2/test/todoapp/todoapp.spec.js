@@ -98,3 +98,20 @@ it('투두리스트를 수정하는 통신 테스트', async () => {
 
   await waitFor(() => expect(getByText(container, "444 change")).toBeVisible());
 });
+
+it('투두리스트를 삭제하는 통신 테스트', async () => {
+  // 유저 선택
+  await waitForDomChange({ container });
+  getByText(container, "junil", { selector: "button[data-ref='select']" }).click();
+  await waitForDomChange({ container }); // 로딩
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 선택 후 삭제
+  const $itemLabel = getByText(container, "333", { selector: "label" });
+  fireEvent.click($itemLabel.nextElementSibling);
+  await waitForDomChange({ container });
+
+  // 아이템 컨텐츠 및 갯수 검증
+  const $items = getAllByText(container, /111|222|333|444/, { selector: "label[data-ref='contents']" });
+  expect($items.length).toEqual(2);
+});

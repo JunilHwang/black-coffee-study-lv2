@@ -9,6 +9,7 @@ export function todoMockInit () {
 
   const userId = "1607513733976";
   const itemId = "202012092343";
+  const deleteItemId = "1607513733979";
 
   mockAxios
     .onGet(`${todoBaseURL}/users`)
@@ -44,6 +45,13 @@ export function todoMockInit () {
         item.contents = contents;
         console.log(item);
         return [200, item];
+      })
+    .onDelete(`${todoBaseURL}/users/${userId}/items/${deleteItemId}`)
+      .reply(() => {
+        const items = todoList.find(v => v._id === userId).todoList;
+        const itemIndex = items.findIndex(v => v._id === deleteItemId);
+        items.splice(itemIndex, 1);
+        return [200];
       })
 
 }
