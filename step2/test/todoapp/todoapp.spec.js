@@ -1,6 +1,14 @@
 import { todoMockInit, todoMockReset } from './mockApi';
 import App from "../../src/todoapp/App";
-import {getAllByText, getByText, queryAllByText, waitForDomChange} from "@testing-library/dom";
+import {
+  fireEvent,
+  getAllByText,
+  getByDisplayValue,
+  getByPlaceholderText,
+  getByText,
+  queryAllByText,
+  waitForDomChange
+} from "@testing-library/dom";
 import {waitFor} from "@babel/core/lib/gensync-utils/async";
 import axios from "axios";
 import {todoBaseURL} from "../../src/todoapp/adapter/todoAdapter";
@@ -36,4 +44,17 @@ it('투두리스트를 읽어오는 통신 테스트', async () => {
   await waitForDomChange({ container });
   const $items = getAllByText(container, /111|222|333/, { selector: "label[data-ref='contents']" });
   expect($items.length).toEqual(3);
+});
+
+it('투두리스트를 생성하는 통신 테스트', async () => {
+  // 유저 선택
+  await waitForDomChange({ container });
+  getByText(container, "junil", { selector: "button[data-ref='select']" }).click();
+  await waitForDomChange({ container }); // 로딩
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 추가
+  const $appender = getByPlaceholderText(container, "할 일을 입력해주세요.");
+  $appender.value = "444";
+  fireEvent.keyPress($appender, { key: 'Enter' });
 });
