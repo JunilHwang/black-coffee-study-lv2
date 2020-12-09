@@ -7,19 +7,24 @@ export class RestClient {
   #client; #abortController;
 
   constructor (baseURL) {
-    console.log(baseURL);
     this.#client = axios.create({ baseURL });
     this.#abortController = new AbortController();
   }
 
   #request (url, method = HttpMethod.GET) {
     return this.#client({ url, method })
-               .then(response => response.data);
+               .then(({ data }) => {
+                 console.log({ url, data });
+                 return data;
+               })
   }
 
   #requestWithBody (url, method, body = {}) {
     return this.#client({ url, method, data: body })
-               .then(response => response.data);
+               .then(({ data }) => {
+                 console.log({ url, data });
+                 return data;
+               });
   }
 
   get (uri) {

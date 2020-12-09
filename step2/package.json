@@ -11,9 +11,10 @@
     "test:html": "jest test/uiCounter/html.spec.js --watch",
     "test:serverCounter": "jest test/serverCounter.spec.js --watch",
     "test:coverage": "jest --coverage",
+    "test:todoapp": "set NODE_ENV=production test && jest test/todoapp/todoapp.spec.js --watch",
     "app:uiCounter": "parcel uiCounter.html",
     "app:serverCounter": "node ./serverCounterBundle.js",
-    "app:todoapp": "parcel todoapp.html"
+    "app:todoapp": "set NODE_ENV=production && parcel todoapp.html"
   },
   "jest": {
     "snapshotSerializers": [
@@ -33,6 +34,7 @@
   "homepage": "https://github.com/next-step/js-test-basic-step2#readme",
   "devDependencies": {
     "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.8.3",
     "@testing-library/cypress": "^4.2.0",
     "@testing-library/dom": "^6.11.0",

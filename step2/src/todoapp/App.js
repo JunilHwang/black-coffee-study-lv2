@@ -5,15 +5,15 @@ import {FETCH_USERS, SET_USER, SET_USERS, userStore} from "./store/userStore";
 import {getQuery} from "./utils";
 import {SET_TODO_ITEMS, todoStore} from "./store/todoStore";
 
-const App = class extends Component{
+export default class App extends Component{
 
   async componentInit () {
     const users = await userStore.dispatch(FETCH_USERS);
-    const userId = getQuery('user_id');
-    const selectedIndex = Math.max(users.findIndex(({ _id }) => _id === userId), 0);
+    // const userId = getQuery('user_id');
+    // const selectedIndex = Math.max(users.findIndex(({ _id }) => _id === userId), 0);
     userStore.commit(SET_USERS, users);
-    userStore.commit(SET_USER, selectedIndex);
-    todoStore.commit(SET_TODO_ITEMS, users[selectedIndex].todoList);
+    // userStore.commit(SET_USER, selectedIndex);
+    // todoStore.commit(SET_TODO_ITEMS, users[selectedIndex].todoList);
   }
 
   $children =  () => ({
@@ -29,5 +29,3 @@ const App = class extends Component{
   }
 
 }
-
-new App(document.querySelector('#app'));

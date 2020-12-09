@@ -6,7 +6,6 @@ export class Store {
 
   constructor({ state = {}, mutations = {}, getters = {}, actions = {} }) {
     this.$state = observable(state);
-    console.log(state);
     this.$getters = Object.entries(getters)
                           .reduce((getters, [key, getter]) => {
                             Object.defineProperty(getters, key, {
