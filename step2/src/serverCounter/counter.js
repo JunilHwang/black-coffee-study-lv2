@@ -16,7 +16,6 @@ export function createServerCounter(el, options) {
       <button type="button" ${incDisabled} class="btn btn-primary btn-inc">+</button>
     `);
   }
-
   axios.get('/counter').then(({ data }) => {
     render(data);
   });
