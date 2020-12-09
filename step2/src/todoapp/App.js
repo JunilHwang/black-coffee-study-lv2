@@ -10,7 +10,6 @@ export default class App extends Component{
   async componentInit () {
     const users = await userStore.dispatch(FETCH_USERS);
     const userId = getQuery('user_id');
-    userStore.commit(SET_USERS, users);
     if (userId) {
       const selectedIndex = Math.max(users.findIndex(({ _id }) => _id === userId), 0);
       userStore.commit(SET_USER, selectedIndex);
