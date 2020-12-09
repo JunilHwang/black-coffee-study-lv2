@@ -63,3 +63,38 @@ it('투두리스트를 생성하는 통신 테스트', async () => {
   const $items = getAllByText(container, /111|222|333|444/, { selector: "label[data-ref='contents']" });
   expect($items.length).toEqual(4);
 });
+
+it('투두리스트를 수정하는 통신 테스트', async () => {
+  // 유저 선택
+  await waitForDomChange({ container });
+  getByText(container, "junil", { selector: "button[data-ref='select']" }).click();
+  await waitForDomChange({ container }); // 로딩
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 추가
+  const $appender = getByPlaceholderText(container, "할 일을 입력해주세요.");
+  $appender.value = "444";
+  fireEvent.keyPress($appender, { key: 'Enter' });
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 컨텐츠 및 갯수 검증
+  const $items = getAllByText(container, /111|222|333|444/, { selector: "label[data-ref='contents']" });
+  expect($items.length).toEqual(4);
+});
+
+it('투두리스트를 수정하는 통신 테스트', async () => {
+  // 유저 선택
+  await waitForDomChange({ container });
+  getByText(container, "junil", { selector: "button[data-ref='select']" }).click();
+  await waitForDomChange({ container }); // 로딩
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 수정 인풋 보이기
+  fireEvent.dblClick(getByText(container, "444"));
+  await waitForDomChange({ container });
+
+  fireEvent.keyPress(getByDisplayValue(container, "444"), { key: "Enter", target: { value: "444 change" } });
+  await waitForDomChange({ container });
+
+  await waitFor(() => expect(getByText(container, "444 change")).toBeVisible());
+});

@@ -8,6 +8,7 @@ const mockAxios = new MockAdapter(axios);
 export function todoMockInit () {
 
   const userId = "1607513733976";
+  const itemId = "202012092343";
 
   mockAxios
     .onGet(`${todoBaseURL}/users`)
@@ -26,14 +27,23 @@ export function todoMockInit () {
         const { contents } = JSON.parse(data);
         const items = todoList.find(v => v._id === userId).todoList;
         const newItem = {
-          _id: "20201209",
+          _id: itemId,
           isCompleted: false,
           priority: "NONE",
           contents,
         };
         items.push(newItem);
         console.log(newItem);
-        return [200, {}];
+        return [200, newItem];
+      })
+    .onPut(`${todoBaseURL}/users/${userId}/items/${itemId}`)
+      .reply(({ data }) => {
+        const { contents } = JSON.parse(data);
+        const items = todoList.find(v => v._id === userId).todoList;
+        const item = items.find(v => v._id === itemId);
+        item.contents = contents;
+        console.log(item);
+        return [200, item];
       })
 
 }

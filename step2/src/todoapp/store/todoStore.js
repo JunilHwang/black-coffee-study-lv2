@@ -78,7 +78,6 @@ export const todoStore = new Store({
 
   actions: {
     async [FETCH_ITEMS] ({ commit }, userId) {
-      console.log(userId);
       const result = await TodoService.fetchItems(userId);
       try {
         if (result.message) throw `${result.message}: ${userId}`;
