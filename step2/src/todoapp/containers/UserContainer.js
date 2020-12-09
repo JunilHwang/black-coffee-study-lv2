@@ -8,7 +8,7 @@ import {lazyFrame} from "../utils/index.js";
 
 export class UserContainer extends Component {
 
-  get userId () { return userStore.$getters.selectedUser._id }
+  get userId () { return userStore.$getters.selectedUser?._id || null; }
 
   loadItemsByUser = async index => {
     todoStore.commit(SET_LOADING_TYPE, LoadingTypes.INIT);

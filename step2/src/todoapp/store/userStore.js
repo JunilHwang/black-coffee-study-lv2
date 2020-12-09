@@ -10,11 +10,11 @@ export const REMOVE_USER = 'REMOVE_USER';
 export const userStore = new Store({
   state: {
     users: [],
-    selectedIndex: 0,
+    selectedIndex: -1,
   },
 
   getters: {
-    selectedUser: ({ users, selectedIndex }) => users[selectedIndex],
+    selectedUser: ({ users, selectedIndex }) => selectedIndex !== -1 ? users[selectedIndex] : null,
   },
 
   mutations: {

@@ -15,7 +15,7 @@ import {
 
 export class TodoContainer extends Component {
 
-  get userId () { return userStore.$getters.selectedUser?._id; }
+  get userId () { return userStore.$getters.selectedUser?._id || null; }
 
   appendItem = contents => todoStore.dispatch(ADD_ITEM, { userId: this.userId, contents });
 
@@ -88,6 +88,7 @@ export class TodoContainer extends Component {
   });
 
   template () {
+    if (!this.userId) return null;
     return `
       <section class="todoapp">
         <section data-component="TodoAppender" class="input-container"></section>
