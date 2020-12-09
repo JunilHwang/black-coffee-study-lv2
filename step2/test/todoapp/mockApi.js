@@ -1,13 +1,15 @@
 import MockAdapter from 'axios-mock-adapter';
-import axios from "axios";
 import todoList from './todo-list.json';
+import axios from "axios";
+import {todoBaseURL} from "../../src/todoapp/adapter/todoAdapter";
 
-const mockAxios = new MockAdapter(axios.create({
-  baseURL: "https://js-todo-list-9ca3a.df.r.appspot.com/api"
-}));
+const mockAxios = new MockAdapter(axios);
 
 export function todoMockInit () {
-  mockAxios.onGet("/users", () => [200, todoList]);
+  mockAxios.onGet(todoBaseURL + "/users").reply(() => {
+    console.log(todoList);
+    return [200, todoList];
+  });
 }
 
 export function todoMockReset () {
