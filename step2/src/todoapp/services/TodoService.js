@@ -1,5 +1,4 @@
-import HttpMethod from '../constants/HttpMethod.js';
-import {todoAdapter} from "../adapter/todoAdapter.js";
+import {todoAdapter} from "../adapter/todoAdapter";
 
 export default Object.freeze({
 

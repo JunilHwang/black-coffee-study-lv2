@@ -12,7 +12,8 @@
     "test:serverCounter": "jest test/serverCounter.spec.js --watch",
     "test:coverage": "jest --coverage",
     "app:uiCounter": "parcel uiCounter.html",
-    "app:serverCounter": "node ./serverCounterBundle.js"
+    "app:serverCounter": "node ./serverCounterBundle.js",
+    "app:todoapp": "parcel todoapp.html"
   },
   "jest": {
     "snapshotSerializers": [
@@ -52,5 +53,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jquery": "^3.3.1"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

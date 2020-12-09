@@ -1,7 +1,7 @@
-import {Component} from "../../core/Component.js";
-import {userStore} from "../../store/userStore.js";
+import {Component} from "../../core/Component";
+import {userStore} from "../../store/userStore";
 
-export const UserList = class extends Component {
+export class UserList extends Component {
 
   template () {
     const { users, selectedIndex } = userStore.$state;

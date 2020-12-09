@@ -1,6 +1,6 @@
-import {observable} from "./Observer.js";
+import {observable} from "./Observer";
 
-export const Store = class {
+export class Store {
 
   $state; $getters; #mutations; #actions;
 

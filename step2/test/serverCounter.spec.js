@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { waitForDomChange, wait, getByText, fireEvent } from '@testing-library/dom';
+import {getByText} from '@testing-library/dom';
 import {createCounter} from "../src/backup/counter";
 import {createServerCounter} from "../src/serverCounter/counter";
 import {waitFor} from "@babel/core/lib/gensync-utils/async";

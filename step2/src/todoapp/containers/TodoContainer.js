@@ -13,7 +13,7 @@ import {
   TOGGLE_ITEM
 } from "../store/todoStore.js";
 
-export const TodoContainer = class extends Component {
+export class TodoContainer extends Component {
 
   get userId () { return userStore.$getters.selectedUser?._id; }
 

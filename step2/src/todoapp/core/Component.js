@@ -1,7 +1,7 @@
-import {addEventBubblingListener, debounceOneFrame} from "../utils/index.js";
-import {observable, observe} from "./Observer.js";
+import {addEventBubblingListener} from "../utils";
+import {observable, observe} from "./Observer";
 
-export const Component = class {
+export class Component {
 
   $target;
   $props;
@@ -10,10 +10,10 @@ export const Component = class {
   constructor($target, $props = {}) {
     this.$target = $target;
     this.$props = $props;
-    this.#setup();
+    this.setup();
   }
 
-  async #setup () {
+  async setup() {
     await this.componentInit();
     this.$state = observable(this.$state);
     observe(this.render);
@@ -23,35 +23,47 @@ export const Component = class {
 
   render = () => {
     this.$target.innerHTML = this.template();
-    this.#childrenBuild();
+    this.childrenBuild();
     this.componentDidUpdate()
   };
 
-  setState (payload) {
+  setState(payload) {
     for (const [key, value] in Object.entries(payload)) {
       this.$state[key] = value;
     }
   }
 
-  addEvent (eventType, ref, callback) {
+  addEvent(eventType, ref, callback) {
     addEventBubblingListener(eventType, this.$target, `[data-ref="${ref}"]`, event => {
       event.index = Number(event.target.closest('[data-index]')?.dataset?.index || -1);
       callback(event);
     });
   }
 
-  $children = () => {};
-  #childrenBuild () {
+  $children = () => {
+  };
+
+  childrenBuild() {
     const children = this.$children();
     this.$target.querySelectorAll('[data-component]').forEach(target => {
-      const { constructor, props } = children[target.dataset.component];
+      const {constructor, props} = children[target.dataset.component];
       new constructor(target, props);
     })
   }
 
-  componentInit () {}
-  componentDidUpdate () {}
-  componentDidMount () {}
-  setEvent () {}
-  template () { return '' }
+  componentInit() {
+  }
+
+  componentDidUpdate() {
+  }
+
+  componentDidMount() {
+  }
+
+  setEvent() {
+  }
+
+  template() {
+    return ''
+  }
 }

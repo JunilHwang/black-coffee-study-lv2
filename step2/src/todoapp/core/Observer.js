@@ -1,4 +1,4 @@
-import {debounceOneFrame} from "../utils/index.js";
+import {debounceOneFrame} from "../utils";
 
 let currentObserver = null;
 

@@ -1,6 +1,6 @@
-import {Component} from "../../core/Component.js";
-import LoadingTypes from "../../constants/LoadingTypes.js";
-import PriorityTypes from "../../constants/PriorityTypes.js";
+import {Component} from "../../core/Component";
+import LoadingTypes from "../../constants/LoadingTypes";
+import PriorityTypes from "../../constants/PriorityTypes";
 
 const loadingArray = [ ...Array(5).keys() ];
 
@@ -21,7 +21,7 @@ const progressTemplate = `
 const getItemClass = (completed, editing) => editing   ? ' class="editing"'   :
                                              completed ? ' class="completed"' : '';
 
-export const TodoList = class extends Component {
+export class TodoList extends Component {
 
   template () {
     const { loading, editingIndex, items } = this.$props

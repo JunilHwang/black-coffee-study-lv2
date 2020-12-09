@@ -1,5 +1,5 @@
-import {Store} from '../core/Store.js';
-import TodoService from "../services/TodoService.js";
+import {Store} from '../core/Store';
+import TodoService from "../services/TodoService";
 
 export const SET_USERS = 'SET_USERS';
 export const SET_USER = 'SET_USER';

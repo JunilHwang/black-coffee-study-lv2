@@ -1,5 +1,5 @@
-import { Component } from "../../core/Component.js";
-import FilterTypes from "../../constants/FilterTypes.js";
+import { Component } from "../../core/Component";
+import FilterTypes from "../../constants/FilterTypes";
 
 const filterButtons = [
   { type: FilterTypes.ALL, text: '전체보기' },
@@ -7,7 +7,7 @@ const filterButtons = [
   { type: FilterTypes.COMPLETED, text: '완료한 일' },
 ];
 
-export const TodoFooter = class extends Component {
+export class TodoFooter extends Component {
 
   template () {
     const { itemCount, filterType } = this.$props;

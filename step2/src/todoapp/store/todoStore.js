@@ -1,8 +1,8 @@
-import {Store} from '../core/Store.js';
-import TodoService from "../services/TodoService.js";
-import FilterTypes from '../constants/FilterTypes.js';
-import LoadingTypes from "../constants/LoadingTypes.js";
-import PriorityTypes from "../constants/PriorityTypes.js";
+import {Store} from '../core/Store';
+import TodoService from "../services/TodoService";
+import FilterTypes from '../constants/FilterTypes';
+import LoadingTypes from "../constants/LoadingTypes";
+import PriorityTypes from "../constants/PriorityTypes";
 
 export const SET_TODO_ITEMS = 'SET_TODO_ITEMS';
 export const SET_EDITING = 'SET_EDITING';

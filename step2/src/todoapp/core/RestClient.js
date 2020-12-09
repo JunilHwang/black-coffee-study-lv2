@@ -1,30 +1,25 @@
-import HttpMethod from "../constants/HttpMethod.js";
+import axios from "axios";
 
-export const RestClient = class {
+import HttpMethod from "../constants/HttpMethod";
 
-  #baseURL; #abortController;
+export class RestClient {
+
+  #client; #abortController;
 
   constructor (baseURL) {
-    this.#baseURL = baseURL;
+    console.log(baseURL);
+    this.#client = axios.create({ baseURL });
     this.#abortController = new AbortController();
   }
 
-  #getRequestURLOf (uri) {
-    const slash = uri[0] === '/' ? '' : '/';
-    return `${this.#baseURL}${slash}${uri}`;
+  #request (url, method = HttpMethod.GET) {
+    return this.#client({ url, method })
+               .then(response => response.data);
   }
 
-  #request (uri, method = HttpMethod.GET) {
-    const url = this.#getRequestURLOf(uri);
-    return fetch(url, { method }).then(response => response.json());
-  }
-
-  #requestWithBody (uri, method, body) {
-    const url = this.#getRequestURLOf(uri);
-    const headers = { 'Content-Type': 'application/json' };
-    const config = { method, headers };
-    if (body) config.body = JSON.stringify(body);
-    return fetch(url, config).then(response => response.json());
+  #requestWithBody (url, method, body = {}) {
+    return this.#client({ url, method, data: body })
+               .then(response => response.data);
   }
 
   get (uri) {

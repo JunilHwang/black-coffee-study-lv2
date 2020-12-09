@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "1607513733976",
+    "name": "junil",
+    "todoList": [
+      {
+        "_id": "1607513733977",
+        "contents": "111",
+        "isCompleted": false,
+        "priority": "FIRST"
+      },
+      {
+        "_id": "1607513733978",
+        "contents": "222",
+        "isCompleted": false,
+        "priority": "SECOND"
+      },
+      {
+        "_id": "1607513733979",
+        "contents": "333",
+        "isCompleted": false,
+        "priority": "NONE"
+      }
+    ]
+  }
+]

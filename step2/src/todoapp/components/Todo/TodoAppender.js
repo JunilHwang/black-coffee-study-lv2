@@ -1,6 +1,6 @@
-import { Component } from "../../core/Component.js";
+import { Component } from "../../core/Component";
 
-export const TodoAppender = class extends Component {
+export class TodoAppender extends Component {
 
   template () {
     return `
