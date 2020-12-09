@@ -23,16 +23,17 @@ export function todoMockInit () {
       })
     .onPost(`${todoBaseURL}/users/${userId}/items`)
       .reply(({ data }) => {
+        const { contents } = JSON.parse(data);
         const items = todoList.find(v => v._id === userId).todoList;
         const newItem = {
           _id: "20201209",
-          contents: data.contents,
           isCompleted: false,
-          priority: "NONE"
+          priority: "NONE",
+          contents,
         };
         items.push(newItem);
         console.log(newItem);
-        return [200, newItem];
+        return [200, {}];
       })
 
 }

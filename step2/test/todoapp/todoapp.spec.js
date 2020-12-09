@@ -57,4 +57,9 @@ it('투두리스트를 생성하는 통신 테스트', async () => {
   const $appender = getByPlaceholderText(container, "할 일을 입력해주세요.");
   $appender.value = "444";
   fireEvent.keyPress($appender, { key: 'Enter' });
+  await waitForDomChange({ container }); // 로딩 완료
+
+  // 아이템 컨텐츠 및 갯수 검증
+  const $items = getAllByText(container, /111|222|333|444/, { selector: "label[data-ref='contents']" });
+  expect($items.length).toEqual(4);
 });
