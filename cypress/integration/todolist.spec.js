@@ -28,13 +28,13 @@ describe("TodoList 테스트", () => {
     cy.get(".todoapp-container h2").contains(memberText).should("be.visible");
   });
 
-  // it("todoItem을 추가한다", () => {
-  //   cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
-  //   cy.get(".todoapp-container").first().as("container");
-  //   cy.get("@container").get(".new-todo").type(newTodoText).type('{enter}');
-  //   cy.intercept("GET", )
-  //   // cy.get("@container").eq(0).should("text", newTodoText)
-  // });
+  it("todoItem을 추가한다", () => {
+    cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
+    cy.get(".todoapp-container").first().as("container");
+    cy.get("@container").get(".new-todo").type(newTodoText).type('{enter}');
+    cy.wait("@getTodo");
+    cy.get("@container").get(".todo-list li").eq(0).contains(newTodoText).should("be.visible");
+  });
 
   // it("todoItem을 수정한다", () => {
   //   const updatedTodoText = "새로운 할 일 수정"
