@@ -7,7 +7,7 @@
     "cypress:open": "cypress open",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "dev": "live-server ./src"
+    "dev": "live-server src"
   },
   "repository": {
     "type": "git",
