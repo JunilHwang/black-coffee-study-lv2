@@ -28,7 +28,7 @@ describe("TodoList 테스트", () => {
     cy.get(".todoapp-container h2").contains(memberText).should("be.visible");
   });
 
-  it("todoItem을 추가한다", () => {
+  it("todo list에 todoItem을 키보드로 입력후 enter키를 눌러 추가하기", () => {
     cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
     cy.get(".todoapp-container").first().as("container");
     cy.get("@container").get(".new-todo").type(newTodoText).type('{enter}');
@@ -36,18 +36,22 @@ describe("TodoList 테스트", () => {
     cy.get("@container").get(".todo-list li").eq(0).contains(newTodoText).should("be.visible");
   });
 
-  // it("todoItem을 수정한다", () => {
-  //   const updatedTodoText = "새로운 할 일 수정"
-  //   cy.get("#todo-list li label").eq(0).dblclick()
-  //   cy.focused().type(" 수정")
-  //   cy.focused().type('{enter}')
-  //   cy.get("#todo-list li label").eq(0).should("text", updatedTodoText)
-  // });
-  //
-  // it("todoItem을 완료한다.", () => {
-  //   cy.get("#todo-list li input.toggle").eq(0).click()
-  //   cy.get("#todo-list li").eq(0).should("have.class", "completed")
-  // });
+  it("todoItem을 수정한다", () => {
+    const updatedTodoText = `${newTodoText} update`;
+    cy.intercept("PUT", `${baseURL}/teams/**/members/**/items/**`).as("putTodo");
+    cy.get(".todoapp-container").first().as("container");
+    cy.get("@container").get(".todo-list li label").first().get('label').dblclick();
+    cy.focused().type(" update").type('{enter}');
+    cy.wait("@putTodo");
+    cy.get("@container").get(".todo-list li label").first().get('label').should("text", updatedTodoText)
+  });
+
+  it("todo list의 체크박스를 클릭하여 complete 상태로 변경.", () => {
+    // li tag 에 completed class 추가, input 태그에 checked 속성 추가
+    cy.get(".todoapp-container").first().as("container");
+    cy.get("@container").get(".todo-list li .toggle").first().click();
+    cy.get("#todo-list li").eq(0).should("have.class", "completed")
+  });
   //
   // it("todoItem을 삭제한다", () => {
   //   cy.get("#todo-list li button.destroy").eq(0).click({ force: true })
