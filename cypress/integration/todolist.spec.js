@@ -39,6 +39,17 @@ describe("TodoList 테스트", () => {
     cy.get("@container").find(".todo-list li:eq(0)").contains(newTodoText).should("be.visible");
   });
 
+  it("아이템 Filter 테스트", () => {
+    cy.get(".todoapp-container:eq(0) .filters").as("filters");
+    cy.get(".todoapp-container:eq(0) .todo-count strong").as("counter");
+    cy.get("@filters").contains("해야할 일").click();
+    cy.get("@counter").should("text", "1");
+    cy.get("@filters").contains("완료한 일").click();
+    cy.get("@counter").should("text", "0");
+    cy.get("@filters").contains("전체보기").click();
+    cy.get("@counter").should("text", "1");
+  });
+
   it("todo list의 체크박스를 클릭하여 complete 상태로 변경.", () => {
     // li tag 에 completed class 추가, input 태그에 checked 속성 추가
     cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
@@ -69,10 +80,8 @@ describe("TodoList 테스트", () => {
   });
 
   it("todoItem을 더블 클릭시 input 모드로 변경", () => {
-    cy.wait(100);
     cy.get(".todoapp-container:eq(0) .todo-list li:eq(0)").as("container");
     cy.get("@container").find("label").dblclick();
-    cy.wait(1000);
     cy.get("@container").should("have.class", "editing");
     cy.get("@container").find("input.edit").focus().type(`{esc}`, { force: true });
     cy.get("@container").should("not.have.class", "editing");
