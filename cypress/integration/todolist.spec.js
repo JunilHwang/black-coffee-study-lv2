@@ -15,11 +15,12 @@ describe("TodoList 테스트", () => {
     cy.contains(teamText).should("be.visible");
   });
 
-  it("Team을 선택한다.", () => {
+  it("Team을 선택하여 이동한다.", () => {
     cy.intercept("GET", `${baseURL}/teams/**`).as("getMembers");
     cy.get(".team-list-container").contains(teamText).click();
     cy.wait("@getMembers");
     cy.get("#user-title strong").contains(teamText).should("be.visible");
+    cy.get("#todo-list-of-team").children(".todoapp-container").should("have.length", 0);
   });
 
   it("Member를 추가한다.", () => {
@@ -38,10 +39,10 @@ describe("TodoList 테스트", () => {
 
   it("todo list의 체크박스를 클릭하여 complete 상태로 변경.", () => {
     // li tag 에 completed class 추가, input 태그에 checked 속성 추가
-    cy.intercept("PUT", `${baseURL}/teams/**/members/**/items/**/toggle`).as("toggleTodo");
+    cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
     cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
     cy.get("@container").get(".toggle").first().click();
-    cy.wait("@toggleTodo");
+    cy.wait("@getTodo");
     cy.get("@container")
       .should("have.class", "completed")
         .get(".toggle")
@@ -69,11 +70,11 @@ describe("TodoList 테스트", () => {
 
   it("todoItem을 수정", () => {
     const updatedTodoText = `${newTodoText} update`;
-    cy.intercept("PUT", `${baseURL}/teams/**/members/**/items/**`).as("putTodo");
+    cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
     cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
     cy.get("@container").get("label").dblclick();
     cy.get("@container").get("input").type(" update").type('{enter}');
-    cy.wait("@putTodo");
+    cy.wait("@getTodo");
     cy.get("@container").get('label').should("text", updatedTodoText);
   });
 
@@ -84,8 +85,12 @@ describe("TodoList 테스트", () => {
   });
 
   it("todoItem을 삭제하기", () => {
-    cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
-    cy.get("@container").get(".destroy").click();
+    cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
+    cy.get(".todoapp-container").first().as("container");
+    cy.get("@container").first().get(".todo-list li").first().get(".destroy").click();
+    cy.wait("@getTodo");
+    cy.get("@container").get(".todo-list").children().should("have.length", 0);
+    cy.get("@container").get(".todo-count strong").should("text", "0");
   });
 
   it("Team을 삭제한다.", () => {
