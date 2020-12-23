@@ -16,17 +16,19 @@ describe("TodoList 테스트", () => {
   });
 
   it("Team을 선택하여 이동한다.", () => {
-    cy.intercept("GET", `${baseURL}/teams/**`).as("getMembers");
-    cy.get(".team-list-container").contains(teamText).click();
-    cy.wait("@getMembers");
+    cy.intercept("GET", `${baseURL}/teams/**`).as("getTeam");
+    cy.get(".team-list-container").contains(teamText).first().click();
+    cy.wait("@getTeam");
     cy.get("#user-title strong").contains(teamText).should("be.visible");
     cy.get("#todo-list-of-team").children(".todoapp-container").should("have.length", 0);
   });
 
   it("Member를 추가한다.", () => {
+    cy.intercept("POST", `${baseURL}/teams/**/members`).as("postMember");
     cy.get("#add-user-button").click();
     cy.focused().type(memberText).type('{enter}');
-    cy.get(".todoapp-container h2").contains(memberText).should("be.visible");
+    cy.wait("@postMember");
+    cy.get(".todoapp-container").should("have.length", 1);
   });
 
   it("todo list에 todoItem을 키보드로 입력후 enter키를 눌러 추가하기", () => {
