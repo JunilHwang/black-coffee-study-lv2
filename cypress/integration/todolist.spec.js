@@ -60,7 +60,7 @@ describe("TodoList 테스트", () => {
 
   it("todoItem을 수정", () => {
     cy.get(".todoapp-container:eq(0) .todo-list li:eq(0)").as("container");
-    cy.get("@container").find("label").trigger('dblclick');
+    cy.get("@container").find("label").dblclick({ multiple: false });
     cy.get("@container").find("input.edit").focus().type(" update ", { force: true }).type('{enter}', { force: true });
 
     cy.intercept("GET", `${baseURL}/teams/**/members/**`).as("getTodo");
@@ -69,8 +69,10 @@ describe("TodoList 테스트", () => {
   });
 
   it("todoItem을 더블 클릭시 input 모드로 변경", () => {
+    cy.wait(100);
     cy.get(".todoapp-container:eq(0) .todo-list li:eq(0)").as("container");
-    cy.get("@container").find("label").trigger('dblclick');
+    cy.get("@container").find("label").dblclick();
+    cy.wait(1000);
     cy.get("@container").should("have.class", "editing");
     cy.get("@container").find("input.edit").focus().type(`{esc}`, { force: true });
     cy.get("@container").should("not.have.class", "editing");
