@@ -45,22 +45,18 @@ describe("TodoList 테스트", () => {
     cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
     cy.get("@container").get(".toggle").first().click();
     cy.wait("@getTodo");
-    cy.get("@container")
-      .should("have.class", "completed")
-        .get(".toggle")
-        .should("be.checked");
+    cy.get("@container").should("have.class", "completed");
+    cy.get("@container").get(".toggle").should("be.checked");
 
     cy.get("@container").get(".toggle").first().click();
-    cy.wait("@toggleTodo");
-    cy.get("@container")
-      .should("not.have.class", "completed")
-        .get(".toggle")
-        .should("be.checked");
+    cy.wait("@getTodo");
+    cy.get("@container").should("not.have.class", "completed");
+    cy.get("@container").get(".toggle").should("not.be.checked");
   });
 
   it("todoItem을 더블 클릭시 input 모드로 변경", () => {
     cy.get(".todoapp-container").first().get(".todo-list li").first().as("container");
-    cy.get("@container").get("label").dblclick();
+    cy.get("@container").dblclick();
     cy.get("@container").should("have.class", "editing");
   });
 
